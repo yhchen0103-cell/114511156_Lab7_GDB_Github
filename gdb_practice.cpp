@@ -10,16 +10,19 @@ using namespace std;
 // Stage 1: child 類別的指標未初始化 
 // 對應講義: p.2, p.5-6 的 demo.cpp
 // ==========================================
-class child {
+class child 
+{
 public:
     int value;
     string id;
     child* dad;
 
     child(int a, string b) { value = a; id = b; dad = nullptr; } // 故意讓 dad 為 null
-    void printinfo() { 
-        cout << dad->value << " "; 
-        cout << dad->id << endl;
+    void printinfo() 
+    {
+        
+            cout << dad->value << " "; 
+            cout << dad->id << endl ;
     }
 };
 
@@ -27,9 +30,10 @@ void stage1() {
     cout << "\n[Stage 1] 測試 child 類別..." << endl;
     child* y = new child(60, "root");
     child* x = new child(50, "child");
-    
+
+    x -> dad = y ;
     x->printinfo(); 
-    
+
     cout << "[Stage 1] 通過！指標問題已修復。" << endl;
     delete x; delete y;
 }
@@ -43,11 +47,21 @@ public:
     char* name_;
     int age_;
     
-    person(char* n, int a) {
-        int length = strlen(n); 
-        name_ = new char[length + 1];
-        strcpy(name_, n);
-        age_ = a;
+    person(char* n, int a) 
+    {  
+        
+        if (n == nullptr) 
+        {
+            name_ = new char[1];
+            name_[0] = '\0';
+        }
+        else
+        {
+            int length = strlen(n); 
+            name_ = new char[length + 1];
+            strcpy(name_ , n);
+            age_ = a;
+        }
     }
     ~person() { delete[] name_; }
 };
@@ -69,7 +83,7 @@ void stage2() {
 int summation(int array[]) {
     int result = 0;
 
-    for (unsigned int i = size; i >= 0; --i) {
+    for (int i = size; i >= 0; i--) {
         result += array[i];
     }
     return result;
@@ -77,8 +91,8 @@ int summation(int array[]) {
 
 void stage3() {
     cout << "\n[Stage 3] 測試 summation 陣列計算..." << endl;
-    int array[size];
-    for (unsigned int i = 0; i < size; ++i) {
+    int array[size+1];
+    for (int i = 0; i < size; i++) {
         array[i] = rand() % 10 + 1;
     }
     
