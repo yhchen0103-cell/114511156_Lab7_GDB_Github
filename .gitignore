@@ -1,0 +1,9 @@
+# 編譯產生的二進位檔
+*.o
+*.out
+*.exe
+a.out
+
+# IDE 暫存檔
+.vscode/
+.DS_Store
